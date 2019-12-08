@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Jumbotron from "./Jumbotron";
+import Table from "./table/Table";
 import PropTypes from "prop-types";
 
 class Home extends Component {
@@ -18,6 +19,7 @@ class Home extends Component {
     return (
       <div>
         <Jumbotron />
+        <Table course_modules={this.state.course_modules} />
       </div>
     );
   }
