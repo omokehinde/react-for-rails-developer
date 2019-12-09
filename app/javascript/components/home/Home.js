@@ -1,19 +1,29 @@
 import React, { Component } from "react";
 import Jumbotron from "./Jumbotron";
 import Table from "./table/Table";
+import axios from 'axios';
 import PropTypes from "prop-types";
 
 class Home extends Component {
   constructor() {
     super()
     this.state = {
-      course_modules: [
-        {id: 1, title: '1. Setting up a new Rails app with React', description: 'This is the video description', active: false },
-        {id: 2, title: '2. Adding React to an exisiting Rails App', description: 'This is the video description', active: false },
-        {id: 3, title: '3. Building an HelloWorld App', description: 'This is the video description', active: false },
-        {id: 4, title: '4. Adding React Router Dom to your App', description: 'This is the video description', active: false }
-      ]
+      course_modules: []
     }
+  }
+
+  componentDidMount(){
+    axios.get('/episodes.json')
+    .then(data => {
+      let res=[]
+      data.data.data.map((data) => {
+        res.push({id: data.id, title: data.title, description: data.description, active: false})
+        this.setState({course_modules: res})
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   handleVideoChange(item, e) {
